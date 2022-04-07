@@ -48,7 +48,7 @@ func loadCalendarFromConfig(calendar string) (Calendar, error) {
 	// Check correct length of configuration
 
 	if len(v.AllKeys()) < 4 {
-		return c, fmt.Errorf("Incorrect configuration - expected 5 items, got: %d", len(v.AllKeys()))
+		return c, fmt.Errorf("Incorrect configuration - expected 5 items, got: %d\n", len(v.AllKeys()))
 	}
 
 	if tokenFile := v.GetString("tokenfile"); len(tokenFile) > 0 {
@@ -108,7 +108,7 @@ var fetchCmd = &cobra.Command{
 
 		cal, err := loadCalendarFromConfig(calendar)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Cannot find calendar stanza for calendar: %s in configuration - error %v", calendar, err)
+			fmt.Fprintf(os.Stderr, "Cannot find calendar stanza for calendar: %s in configuration - error %v\n", calendar, err)
 			os.Exit(1)
 		}
 		cl := genClient(cal.tokenfile)
@@ -119,7 +119,7 @@ var fetchCmd = &cobra.Command{
 			// Write to org file
 			fmt.Fprintf(os.Stderr, "Writing agenda to %s\n", cal.orgfile)
 			if err := ioutil.WriteFile(cal.orgfile, []byte(strBuilder.String()), 0644); err != nil {
-				fmt.Fprintf(os.Stderr, "Error writing to %s - %v", cal.orgfile, err)
+				fmt.Fprintf(os.Stderr, "Error writing to %s - %v\n", cal.orgfile, err)
 				os.Exit(1)
 			}
 		}
